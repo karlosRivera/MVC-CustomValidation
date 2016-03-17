@@ -23,10 +23,13 @@ namespace AuthTest.Models
     public class MyDateAttribute : ValidationAttribute, IClientValidatable
     {
         private DateTime _MinDate;
-
+        
         public MyDateAttribute()
         {
             _MinDate = DateTime.Today;
+
+            
+            
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
