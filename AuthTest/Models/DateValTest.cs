@@ -5,6 +5,8 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Globalization;
+
+
 namespace AuthTest.Models
 {
     public class DateValTest
@@ -22,14 +24,11 @@ namespace AuthTest.Models
 
     public class MyDateAttribute : ValidationAttribute, IClientValidatable
     {
-        private DateTime _MinDate;
+        public DateTime _MinDate;
         
         public MyDateAttribute()
         {
             _MinDate = DateTime.Today;
-
-            
-            
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
