@@ -22,6 +22,7 @@ namespace AuthTest.Models
         public DateTime?  EndDate { get; set; }
     }
 
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
     public class MyDateAttribute : ValidationAttribute, IClientValidatable
     {
         public DateTime _MinDate;
