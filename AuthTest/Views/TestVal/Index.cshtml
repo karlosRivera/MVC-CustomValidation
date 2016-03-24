@@ -1,0 +1,89 @@
+﻿@model  AuthTest.Models.SampleViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+
+
+@using (Html.BeginForm("Index", "TestVal", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>DateValTest</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Products, htmlAttributes: new { @class = "control-label col-md-2", style = "padding-top:0px;" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedProductId, new SelectList(Model.Products, "ID", "Name"), "-- Select Product--")
+                @Html.ValidationMessageFor(model => model.SelectedProductId, "", new { @class = "text-danger" })
+
+                @for (int i = 0; i < Model.Products.Count(); i++)
+                {
+                    <div>
+                        @Html.HiddenFor(model => Model.Products[i].Name)
+                        @Html.HiddenFor(model => Model.Products[i].ID)
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <b>Gender</b><br />
+                <label>
+                    @Html.RadioButtonFor(model => model.Gender, "Male")
+                    <span>Male</span>
+                </label>
+                <label>
+                    @Html.RadioButtonFor(model => model.Gender, "Female")
+                    <span>Female</span>
+                </label>
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <b>Hobbies</b><br />
+                @for (int x = 0; x < Model.Hobbies.Count(); x++)
+                {
+                    @Html.CheckBoxFor(p => p.Hobbies[x].IsSelected) @: &nbsp; 
+                    @Html.LabelFor(p => p.Hobbies[x].IsSelected, Model.Hobbies[x].Name) @: &nbsp;
+                }
+            </div>
+            @Html.ValidationMessageFor(model => model.Hobbies, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+               
+                    @if (ViewBag.IsPostBack!=null && ViewBag.IsPostBack)
+                    {
+                        <text> 
+                            <b>Your Selected Product ID :</b> @ViewBag.ProductID
+                            <b>Your Selected Product Name :</b> @ViewBag.ProductName
+                        </text>
+                    }
+                
+</div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
